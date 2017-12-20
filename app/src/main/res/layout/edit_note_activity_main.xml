@@ -12,12 +12,22 @@
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/backBtn"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_back"/>
         <TextView
+            android:id="@+id/numberOfNote"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:text="0字"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/completeBtn"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_marginRight="10dp"
@@ -38,9 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
+                android:id="@+id/noteEt"
                 android:background="@null"
                 android:textColor="@color/black"
-                android:text="hdkashjdkashkdhkashdkja"
+                android:text="李维升是好人"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
@@ -52,7 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <ImageView
-            android:src="@mipmap/ic_launcher_round"
+            android:id="@+id/speakBtn"
+            android:src="@android:drawable/ic_btn_speak_now"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
