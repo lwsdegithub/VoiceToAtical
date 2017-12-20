@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * 初始化界面
      */
     private void initView(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.headToolBar);
         setSupportActionBar(toolbar);
 
         addNewNoteFab = (FloatingActionButton) findViewById(R.id.addNewNoteFab);
