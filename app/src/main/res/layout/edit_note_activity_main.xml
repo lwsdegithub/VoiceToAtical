@@ -51,7 +51,6 @@
                 android:id="@+id/noteEt"
                 android:background="@null"
                 android:textColor="@color/black"
-                android:text="李维升是好人"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

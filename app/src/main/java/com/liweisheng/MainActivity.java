@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_exit) {
+            this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
