@@ -24,6 +24,7 @@ import com.iflytek.speech.RecognizerListener;
 import com.iflytek.speech.RecognizerResult;
 import com.liweisheng.Data.UsefulData;
 import com.liweisheng.R;
+import com.liweisheng.com.liweisheng.Util.JsonParser;
 
 /**
  * Created by 李维升 on 2017/12/20.
@@ -144,12 +145,11 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void onResult(com.iflytek.cloud.RecognizerResult recognizerResult, boolean b) {
                 Log.e("results",recognizerResult.getResultString());
-                stringBuffer.append(recognizerResult.getResultString());
+                stringBuffer.append(JsonParser.parserRecognizerResult(recognizerResult.getResultString()));
                 if (b=true){
                     noteEt.setText(stringBuffer.toString());
                 }
         }
-
         @Override
         public void onError(SpeechError speechError) {
 
