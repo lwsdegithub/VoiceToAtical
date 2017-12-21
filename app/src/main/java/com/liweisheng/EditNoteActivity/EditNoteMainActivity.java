@@ -37,7 +37,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         speakBtn = (ImageView) findViewById(R.id.speakBtn);
         speakBtn.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         int id=view.getId();
