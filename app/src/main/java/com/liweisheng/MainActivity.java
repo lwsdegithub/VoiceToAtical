@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //创建语音配置对象
-        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ UsefulData.APPID);
-        //调用初始化方法
+     //调用初始化方法
         initView();
     }
     /**
