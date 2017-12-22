@@ -13,22 +13,19 @@ public class RecognizerResult {
     private String bg;
     private String ed;
 
-    public RecognizerResult() {
+    private List<ws> ws;
+
+    public List<ws> getWs() {
+        return ws;
     }
 
-    private List<ws> wsList;
-
-    public List<ws> getWsList() {
-        return wsList;
+    public void setWs(List<ws> ws) {
+        this.ws = ws;
     }
 
-    public void setWsList(List<ws> wsList) {
-        this.wsList = wsList;
-    }
-
-    public class ws{
+    public static class ws{
         private String bg;
-        private cw cw;
+        private List<cw> cw;
 
         public String getBg() {
             return bg;
@@ -38,14 +35,14 @@ public class RecognizerResult {
             this.bg = bg;
         }
 
-        public cw getCw(){
+        public List<cw> getCw(){
             return cw;
         }
-        public void setCw(cw cw){
+        public void setCw(List<cw> cw){
             this.cw=cw;
         }
 
-        public class cw{
+        public static class cw{
             private String sc;
 
             public String getSc() {
