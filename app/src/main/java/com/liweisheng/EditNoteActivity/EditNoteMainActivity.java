@@ -74,6 +74,10 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         speechRecognizer.setParameter(SpeechConstant.ACCENT, "mandarin ");
         // 接收语言中文
         speechRecognizer.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        //持续唤醒
+        speechRecognizer.setParameter(SpeechConstant.KEEP_ALIVE,"1");
+        //录取音频最长时间为无限
+        speechRecognizer.setParameter(SpeechConstant.KEY_SPEECH_TIMEOUT,"-1");
     }
     @Override
     public void onClick(View view) {
@@ -152,7 +156,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         }
         @Override
         public void onError(SpeechError speechError) {
-
         }
     };
 }
