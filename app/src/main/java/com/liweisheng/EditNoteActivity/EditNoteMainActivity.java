@@ -171,7 +171,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
             numberOfNote.setText(String.valueOf(i)+"字");
             stringBuffer.delete(0,stringBuffer.length());
             stringBuffer.append(noteEt.getText());
-
         }
     };
 }
