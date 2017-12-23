@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,14 +17,12 @@ import android.widget.Toast;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
-import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.iflytek.speech.RecognizerListener;
-import com.iflytek.speech.RecognizerResult;
 import com.liweisheng.Data.UsefulData;
 import com.liweisheng.R;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
@@ -37,7 +38,8 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
     private EditText noteEt;
     private ImageView speakBtn;
     private SpeechRecognizer speechRecognizer;
-    private RecognizerDialog recognizerDialog;
+    private TextView isSpeaking;
+
     //测试用
     private StringBuffer stringBuffer=new StringBuffer();
     @Override
@@ -56,13 +58,13 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         completeBtn = (TextView) findViewById(R.id.completeBtn);
         completeBtn.setOnClickListener(this);
         noteEt = (EditText) findViewById(R.id.noteEt);
+        //设置文字变动监听，用于监听字数的变化
+        noteEt.addTextChangedListener(textWatcher);
         speakBtn = (ImageView) findViewById(R.id.speakBtn);
         speakBtn.setOnClickListener(this);
+        isSpeaking=findViewById(R.id.isSpeaking);
         speechRecognizer=SpeechRecognizer.createRecognizer(this,initListener);
         initSpeechRecognizer();
-        //测试用
-        recognizerDialog=new RecognizerDialog(this,initListener);
-        recognizerDialog.setListener(recognizerDialogListener);
     }
     //初始化语音听写参数
     private void initSpeechRecognizer(){
@@ -84,12 +86,14 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         int id=view.getId();
         switch (id){
             case R.id.backBtn:
+                //返回
                 this.finish();
                 break;
             case R.id.completeBtn:
                 break;
             case R.id.speakBtn:
-                recognizerDialog.show();
+                speechRecognizer.startListening(recognizerListener);
+                isSpeaking.setText("正在听写...");
                 break;
         }
     }
@@ -110,52 +114,64 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
     //语音识别接口
     private RecognizerListener recognizerListener=new RecognizerListener() {
         @Override
-        public void onVolumeChanged(int i, byte[] bytes) throws RemoteException {
+        public void onVolumeChanged(int i, byte[] bytes) {
 
         }
 
         @Override
-        public void onBeginOfSpeech() throws RemoteException {
+        public void onBeginOfSpeech() {
 
+        }
+        @Override
+        public void onEndOfSpeech() {
+                isSpeaking.setText("请重新点击听写");
         }
 
         @Override
-        public void onEndOfSpeech() throws RemoteException {
-
+        public void onResult(RecognizerResult recognizerResult, boolean b) {
+            Log.e("results",recognizerResult.getResultString());
+            stringBuffer.append(JsonParser.parserRecognizerResult(recognizerResult.getResultString()));
+            if (b=true){
+                noteEt.setText(stringBuffer.toString());
+            }
         }
 
-        @Override
-        public void onResult(RecognizerResult recognizerResult, boolean b) throws RemoteException {
-
-        }
-
-        @Override
-        public void onError(int i) throws RemoteException {
-
-        }
-
-        @Override
-        public void onEvent(int i, int i1, int i2, Bundle bundle) throws RemoteException {
-
-        }
-
-        @Override
-        public IBinder asBinder() {
-            return null;
-        }
-    };
-    //语音识别Dialog接口，测试用
-    private RecognizerDialogListener recognizerDialogListener=new RecognizerDialogListener() {
-        @Override
-        public void onResult(com.iflytek.cloud.RecognizerResult recognizerResult, boolean b) {
-                Log.e("results",recognizerResult.getResultString());
-                stringBuffer.append(JsonParser.parserRecognizerResult(recognizerResult.getResultString()));
-                if (b=true){
-                    noteEt.setText(stringBuffer.toString());
-                }
-        }
         @Override
         public void onError(SpeechError speechError) {
+            Toast.makeText(getApplicationContext(),speechError.getErrorDescription(),Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    };
+    //文字编辑接口
+    private View.OnFocusChangeListener onFocusChangeListener=new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean b) {
+
+        }
+    };
+    //监听字数变化,监听有没有编辑
+    private TextWatcher textWatcher=new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            int i=editable.length();
+            numberOfNote.setText(String.valueOf(i)+"字");
+            stringBuffer.delete(0,stringBuffer.length());
+            stringBuffer.append(noteEt.getText());
+
         }
     };
 }
