@@ -28,4 +28,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/Msc.jar')
     compile 'com.google.code.gson:gson:2.8.2'
+    implementation files('libs/bdasr_V3_20171108_9800a2a.jar')
 }

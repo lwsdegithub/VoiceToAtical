@@ -1,10 +1,7 @@
 package com.liweisheng.EditNoteActivity;
 
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -146,13 +143,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
 
         }
     };
-    //文字编辑接口
-    private View.OnFocusChangeListener onFocusChangeListener=new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View view, boolean b) {
-
-        }
-    };
     //监听字数变化,监听有没有编辑
     private TextWatcher textWatcher=new TextWatcher() {
         @Override
@@ -169,6 +159,7 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         public void afterTextChanged(Editable editable) {
             int i=editable.length();
             numberOfNote.setText(String.valueOf(i)+"字");
+            //编辑时清除StringBuffer的内容，并且重新添加
             stringBuffer.delete(0,stringBuffer.length());
             stringBuffer.append(noteEt.getText());
         }

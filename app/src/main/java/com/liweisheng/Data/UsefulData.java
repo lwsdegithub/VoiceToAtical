@@ -6,5 +6,10 @@ package com.liweisheng.Data;
 
 public class UsefulData {
     //科大讯飞的开发者ID
-    public static final String APPID="5a37e19f";
+    public static final String APPIDFORXUNFEI="5a37e19f";
+    //百度语音的相关数据
+    public static final String APPIDFORBAIDU="10578198";
+    public static final String APIKEYFORBAIDU="pDZLwPUC7po9Z9bu7n7RL73r";
+
+
 }
