@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.liweisheng.EditNoteActivity.EditNoteMainActivity;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton addNewNoteFab;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    //默认设置科大讯飞为识别引擎
+    private Boolean isXunFei=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +77,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_exit) {
             this.finish();
             return true;
+        }else if (id==R.id.baiDu){
+            isXunFei=false;
+        }else if (id==R.id.xunFei){
+            isXunFei=true;
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * 实现NavigationView中的item选择方法
      * @param item
@@ -101,7 +107,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onClick(View view) {
         int id=view.getId();
         if (id==R.id.addNewNoteFab){
-            startActivity(new Intent(MainActivity.this, EditNoteMainActivity.class));
+            if (isXunFei){
+                startActivity(new Intent(MainActivity.this, EditNoteMainActivity.class));
+            }else if (!isXunFei){
+                Toast.makeText(this,"选择了百度",Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
