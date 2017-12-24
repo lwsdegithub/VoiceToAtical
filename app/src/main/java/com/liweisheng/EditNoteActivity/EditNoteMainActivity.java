@@ -139,7 +139,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         public void onEvent(int i, int i1, int i2, Bundle bundle) {
-
         }
     };
     //监听字数变化,监听有没有编辑
@@ -153,7 +152,6 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
-
         @Override
         public void afterTextChanged(Editable editable) {
             int i=editable.length();
