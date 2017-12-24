@@ -37,14 +37,13 @@ public class EditNoteMainActivity extends AppCompatActivity implements View.OnCl
     private SpeechRecognizer speechRecognizer;
     private TextView isSpeaking;
 
-    //测试用
     private StringBuffer stringBuffer=new StringBuffer();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_note_activity_main);
         //创建语音配置对象
-        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ UsefulData.APPID);
+        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ UsefulData.APPIDFORXUNFEI);
         //调用初始化界面方法
         this.initView();
     }
