@@ -26,9 +26,10 @@ import com.liweisheng.com.liweisheng.Util.JsonParser;
 
 /**
  * Created by 李维升 on 2017/12/20.
+ * 这是基于科大讯飞语音识别系统的Activity
  */
 
-public class EditNoteMainActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implements View.OnClickListener {
     private ImageView backBtn;
     private TextView numberOfNote;
     private TextView completeBtn;

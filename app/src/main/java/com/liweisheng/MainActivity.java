@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.liweisheng.EditNoteActivity.EditNoteMainActivity;
+import com.liweisheng.EditNoteActivity.EditNoteMainActivityBasedXunFei;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private Toolbar toolbar;
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id=view.getId();
         if (id==R.id.addNewNoteFab){
             if (isXunFei){
-                startActivity(new Intent(MainActivity.this, EditNoteMainActivity.class));
+                startActivity(new Intent(MainActivity.this, EditNoteMainActivityBasedXunFei.class));
             }else if (!isXunFei){
                 Toast.makeText(this,"选择了百度",Toast.LENGTH_LONG).show();
             }

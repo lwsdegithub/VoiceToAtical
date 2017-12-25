@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditNoteActivity.EditNoteMainActivity"/>
+        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedXunFei"/>
         <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
     </application>
     <!--连接网络权限，用于执行云端语音能力 -->
