@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedXunFei"/>
+        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedBaiDu"/>
         <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
     </application>
     <!--连接网络权限，用于执行云端语音能力 -->
@@ -46,6 +47,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!--如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <meta-data android:name="com.baidu.speech.APP_ID"
         android:value="10578198" />
     <meta-data

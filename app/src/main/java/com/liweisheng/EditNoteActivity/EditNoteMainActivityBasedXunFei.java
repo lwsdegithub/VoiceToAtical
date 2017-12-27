@@ -1,6 +1,13 @@
 package com.liweisheng.EditNoteActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Process;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -24,6 +31,8 @@ import com.liweisheng.Data.UsefulData;
 import com.liweisheng.R;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
 
+import java.io.IOException;
+
 /**
  * Created by 李维升 on 2017/12/20.
  * 这是基于科大讯飞语音识别系统的Activity
@@ -37,6 +46,8 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     private ImageView speakBtn;
     private SpeechRecognizer speechRecognizer;
     private TextView isSpeaking;
+    private ImageView upLoadFile;
+    private String audioPath;
 
     private StringBuffer stringBuffer=new StringBuffer();
     @Override
@@ -60,6 +71,8 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         speakBtn = (ImageView) findViewById(R.id.speakBtn);
         speakBtn.setOnClickListener(this);
         isSpeaking=findViewById(R.id.isSpeaking);
+        upLoadFile=findViewById(R.id.upLoadFile);
+        upLoadFile.setOnClickListener(this);
         speechRecognizer=SpeechRecognizer.createRecognizer(this,initListener);
         initSpeechRecognizer();
     }
@@ -82,15 +95,25 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     public void onClick(View view) {
         int id=view.getId();
         switch (id){
+            //点击返回按钮
             case R.id.backBtn:
                 //返回
                 this.finish();
                 break;
+            //点击完成按钮
             case R.id.completeBtn:
                 break;
+            //点击说话按钮
             case R.id.speakBtn:
                 speechRecognizer.startListening(recognizerListener);
                 isSpeaking.setText("正在听写...");
+                break;
+            //点击上传录音,调用系统文件选择框，选择文件并使用回调接口
+            case R.id.upLoadFile:
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(Intent.createChooser(intent,"选择录音文件"),UsefulData.FILE_SELECT_CODE);
                 break;
         }
     }
@@ -135,6 +158,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
 
         @Override
         public void onError(SpeechError speechError) {
+            isSpeaking.setText("ERROR");
             Toast.makeText(getApplicationContext(),speechError.getErrorDescription(),Toast.LENGTH_SHORT).show();
         }
 
@@ -148,7 +172,6 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
-
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -162,4 +185,21 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             stringBuffer.append(noteEt.getText());
         }
     };
+    //这是选择文件时回调的接口
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            Log.e("选择文件回调接口发生错误", "onActivityResult() error, resultCode: " + resultCode);
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        if (requestCode == UsefulData.FILE_SELECT_CODE) {
+            Uri uri = data.getData();
+            audioPath=uri.getPath();
+            Log.i("选择的文件路径为", "------->" + uri.getPath());
+            speechRecognizer.setParameter(SpeechConstant.ASR_SOURCE_PATH,audioPath);
+            speechRecognizer.startListening(recognizerListener);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

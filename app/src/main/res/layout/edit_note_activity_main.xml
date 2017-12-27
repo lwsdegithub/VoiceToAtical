@@ -36,6 +36,13 @@
             android:layout_toRightOf="@+id/numberOfNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/upLoadFile"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/completeBtn"
+            android:src="@android:drawable/ic_menu_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/completeBtn"
             android:textSize="15sp"

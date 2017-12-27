@@ -11,4 +11,6 @@ public class UsefulData {
     public static final String APPIDFORBAIDU="10578198";
     public static final String APIKEYFORBAIDU="pDZLwPUC7po9Z9bu7n7RL73r";
     public static final String SECRETKEYFORBAIDU="NOkmpXaArhuDXqFH8s1oXtUB4FZ9kLGg";
+    //选择录音文件返回码
+    public static final int FILE_SELECT_CODE=0;
 }
