@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -29,6 +31,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.liweisheng.Data.UsefulData;
 import com.liweisheng.R;
+import com.liweisheng.com.liweisheng.Util.FfmpegUtils;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
 
 import java.io.IOException;
@@ -48,6 +51,8 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     private TextView isSpeaking;
     private ImageView upLoadFile;
     private String audioPath;
+    //转码
+    private FfmpegUtils ffmpegUtils;
 
     private StringBuffer stringBuffer=new StringBuffer();
     @Override
@@ -196,10 +201,52 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         if (requestCode == UsefulData.FILE_SELECT_CODE) {
             Uri uri = data.getData();
             audioPath=uri.getPath();
-            Log.i("选择的文件路径为", "------->" + uri.getPath());
-            speechRecognizer.setParameter(SpeechConstant.ASR_SOURCE_PATH,audioPath);
-            speechRecognizer.startListening(recognizerListener);
+            Log.i("选择的文件路径为", "------->" + audioPath);
+            //ffmpeg -i DING.mp3 -f wav test.wav
+            newAudioPath=audioPath.replace(".mp3",".wav");
+            String[] cmd={"ffmpeg ","-i ",uri.getPath()," -f"," wav ",newAudioPath};
+            ffmpegUtils=new FfmpegUtils(this,cmd,executeBinaryResponseHandler);
+            ffmpegUtils.execute();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    String newAudioPath;
+    AlertDialog.Builder builder;
+    //转码回调接口
+    private ExecuteBinaryResponseHandler executeBinaryResponseHandler=new ExecuteBinaryResponseHandler(){
+        @Override
+        public void onStart() {
+            builder=new AlertDialog.Builder(getApplicationContext());
+            builder.setTitle("正在转码中");
+            builder.setCancelable(false);
+            builder.show();
+            super.onStart();
+        }
+        @Override
+        public void onFailure(String message) {
+            Toast.makeText(getApplicationContext(),"error"+message,Toast.LENGTH_LONG).show();
+            super.onFailure(message);
+        }
+        @Override
+        public void onFinish() {
+            speechRecognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH,newAudioPath);
+            speechRecognizer.startListening(recognizerListener);
+            super.onFinish();
+        }
+        @Override
+        public void onProgress(String message) {
+            try {
+                Thread.sleep(500);
+                Toast.makeText(getApplicationContext(),"进行中",Toast.LENGTH_LONG).show();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            super.onProgress(message);
+        }
+        @Override
+        public void onSuccess(String message) {
+            builder.setTitle("成功");
+            super.onSuccess(message);
+        }
+    };
 }
