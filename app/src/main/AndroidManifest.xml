@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedXunFei"/>
+        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedXunFei"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedBaiDu"/>
         <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
     </application>
@@ -42,13 +43,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <!--手机定位信息，用来为语义等功能提供定位，提供更精准的服务-->
-    <!--定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!--如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <meta-data android:name="com.baidu.speech.APP_ID"
         android:value="10578198" />
     <meta-data
