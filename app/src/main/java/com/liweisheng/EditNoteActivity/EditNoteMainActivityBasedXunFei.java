@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -213,12 +214,12 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         }
         if (requestCode == UsefulData.FILE_SELECT_CODE) {
             Uri uri = data.getData();
-            oldAudioPath=uri.getPath();
+            oldAudioPath=(Environment.getExternalStorageDirectory().getAbsoluteFile()+uri.getPath()).replace(':','/').replace("/document/primary","");
             Log.i("选择的文件路径为", "------->" + oldAudioPath);
             //ffmpeg -i old.mp3 new.wav
             newAudioPath=oldAudioPath.replace(".mp3","new.wav");
             Log.i("新的文件路径为", "------->" + newAudioPath);
-            String[] cmd={"ffmpeg","-i",oldAudioPath,newAudioPath};
+            String[] cmd={"-i",oldAudioPath,newAudioPath};
             try {
                 fFmpeg.execute(cmd,executeBinaryResponseHandler);
             } catch (FFmpegCommandAlreadyRunningException e) {
@@ -235,6 +236,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         }
         @Override
         public void onFailure(String message) {
+            Log.i("执行失败", "------->" +message);
             super.onFailure(message);
         }
         @Override
@@ -243,10 +245,12 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         }
         @Override
         public void onProgress(String message) {
+            Log.i("执行中", "------->" +message);
             super.onProgress(message);
         }
         @Override
         public void onSuccess(String message) {
+            Log.i("执行成功", "------->" +message);
             super.onSuccess(message);
         }
     };
