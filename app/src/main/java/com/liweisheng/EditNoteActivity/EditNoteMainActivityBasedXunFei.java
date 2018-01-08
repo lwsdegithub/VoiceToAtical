@@ -34,6 +34,8 @@ import com.liweisheng.Data.UsefulData;
 import com.liweisheng.R;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
 
+import java.io.File;
+
 /**
  * Created by 李维升 on 2017/12/20.
  * 这是基于科大讯飞语音识别系统的Activity
@@ -173,6 +175,9 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             if (b=true){
                 noteEt.setText(stringBuffer.toString());
             }
+            //识别成功后删除文件
+            File file=new File(newAudioPath);
+            file.delete();
         }
 
         @Override
@@ -216,10 +221,10 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             Uri uri = data.getData();
             oldAudioPath=(Environment.getExternalStorageDirectory().getAbsoluteFile()+uri.getPath()).replace(':','/').replace("/document/primary","");
             Log.i("选择的文件路径为", "------->" + oldAudioPath);
-            //ffmpeg -i old.mp3 new.wav
+            //"ffmpeg -i "+ old +" -f s16le -ar 16000 "+ new
             newAudioPath=oldAudioPath.replace(".mp3","new.wav");
             Log.i("新的文件路径为", "------->" + newAudioPath);
-            String[] cmd={"-i",oldAudioPath,newAudioPath};
+            String[] cmd={"-i",oldAudioPath,"-f","s16le","-ar","16000",newAudioPath};
             try {
                 fFmpeg.execute(cmd,executeBinaryResponseHandler);
             } catch (FFmpegCommandAlreadyRunningException e) {
@@ -241,6 +246,9 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         }
         @Override
         public void onFinish() {
+            speechRecognizer.setParameter(SpeechConstant.AUDIO_SOURCE,"-2");
+            speechRecognizer.setParameter(SpeechConstant.ASR_SOURCE_PATH,newAudioPath);
+            speechRecognizer.startListening(recognizerListener);
             super.onFinish();
         }
         @Override
