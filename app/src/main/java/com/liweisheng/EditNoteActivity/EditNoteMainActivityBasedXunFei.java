@@ -2,11 +2,8 @@ package com.liweisheng.EditNoteActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,11 +27,15 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
-import com.liweisheng.Data.UsefulData;
+import com.leon.lfilepickerlibrary.LFilePicker;
+import com.leon.lfilepickerlibrary.utils.Constant;
+import com.liweisheng.Constant.ConstantData;
 import com.liweisheng.R;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
+import com.liweisheng.com.liweisheng.Util.StringFactory;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by 李维升 on 2017/12/20.
@@ -61,7 +62,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_note_activity_main);
         //创建语音配置对象
-        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ UsefulData.APPIDFORXUNFEI);
+        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ ConstantData.APPIDFORXUNFEI);
         //调用初始化界面方法
         this.initView();
     }
@@ -126,15 +127,15 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
                 break;
             //点击说话按钮
             case R.id.speakBtn:
+                speechRecognizer.setParameter(SpeechConstant.AUDIO_SOURCE,"1");
                 speechRecognizer.startListening(recognizerListener);
                 isSpeaking.setText("正在听写...");
                 break;
             //点击上传录音,调用系统文件选择框，选择文件并使用回调接口
             case R.id.upLoadFile:
-                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(Intent.createChooser(intent,"选择录音文件"),UsefulData.FILE_SELECT_CODE);
+                new LFilePicker().withActivity(EditNoteMainActivityBasedXunFei.this).withMutilyMode(false)
+                        .withRequestCode(ConstantData.FILE_SELECT_CODE).withTitle("选择音频").withFileFilter(ConstantData.audioForms)
+                        .withBackgroundColor("#b3c9b4").start();
                 break;
         }
     }
@@ -175,14 +176,19 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             if (b=true){
                 noteEt.setText(stringBuffer.toString());
             }
-            //识别成功后删除文件
-            File file=new File(newAudioPath);
-            file.delete();
+            try {
+                //使用本地录音，识别成功后删除转码后的文件
+                if (oldAudioPath!=newAudioPath){
+                File file=new File(newAudioPath);
+                file.delete();
+                }
+            }catch (Exception e){
+            }
         }
 
         @Override
         public void onError(SpeechError speechError) {
-            isSpeaking.setText("ERROR");
+            isSpeaking.setText("出现错误");
             Toast.makeText(getApplicationContext(),speechError.getErrorDescription(),Toast.LENGTH_SHORT).show();
         }
 
@@ -213,18 +219,14 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
-            Log.e("选择文件回调接口发生错误", "onActivityResult() error, resultCode: " + resultCode);
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        if (requestCode == UsefulData.FILE_SELECT_CODE) {
-            Uri uri = data.getData();
-            oldAudioPath=(Environment.getExternalStorageDirectory().getAbsoluteFile()+uri.getPath()).replace(':','/').replace("/document/primary","");
-            Log.i("选择的文件路径为", "------->" + oldAudioPath);
-            //"ffmpeg -i "+ old +" -f s16le -ar 16000 "+ new
-            newAudioPath=oldAudioPath.replace(".mp3","new.wav");
-            Log.i("新的文件路径为", "------->" + newAudioPath);
-            String[] cmd={"-i",oldAudioPath,"-f","s16le","-ar","16000",newAudioPath};
+        if (requestCode == ConstantData.FILE_SELECT_CODE) {
+            List<String> filePathList=data.getStringArrayListExtra(Constant.RESULT_INFO);
+            oldAudioPath=filePathList.get(0);
+            newAudioPath= StringFactory.getNewPath(oldAudioPath);
+            String[] cmd=StringFactory.getCmd(oldAudioPath,newAudioPath);
             try {
                 fFmpeg.execute(cmd,executeBinaryResponseHandler);
             } catch (FFmpegCommandAlreadyRunningException e) {

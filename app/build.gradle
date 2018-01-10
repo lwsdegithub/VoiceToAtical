@@ -30,4 +30,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     implementation files('libs/bdasr_V3_20171108_9800a2a.jar')
     compile 'com.writingminds:FFmpegAndroid:0.3.2'
+    compile 'com.leon:lfilepickerlibrary:1.6.0'
 }
