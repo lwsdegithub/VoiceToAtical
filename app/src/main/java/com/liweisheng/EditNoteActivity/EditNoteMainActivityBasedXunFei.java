@@ -31,10 +31,13 @@ import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
 import com.liweisheng.Constant.ConstantData;
 import com.liweisheng.R;
+import com.liweisheng.View.SaveFileDialogBuilder;
+import com.liweisheng.com.liweisheng.Util.FileHelper;
 import com.liweisheng.com.liweisheng.Util.JsonParser;
 import com.liweisheng.com.liweisheng.Util.StringFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -53,6 +56,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     private ImageView upLoadFile;
     private String oldAudioPath;
     private String newAudioPath;
+    private SaveFileDialogBuilder saveFileDialogBuilder;
     //转码
     private FFmpeg fFmpeg;
 
@@ -67,15 +71,15 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
         this.initView();
     }
     private void initView(){
-        backBtn = (ImageView) findViewById(R.id.backBtn);
+        backBtn =  findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
-        numberOfNote = (TextView) findViewById(R.id.numberOfNote);
-        completeBtn = (TextView) findViewById(R.id.completeBtn);
+        numberOfNote =  findViewById(R.id.numberOfNote);
+        completeBtn = findViewById(R.id.completeBtn);
         completeBtn.setOnClickListener(this);
-        noteEt = (EditText) findViewById(R.id.noteEt);
+        noteEt =  findViewById(R.id.noteEt);
         //设置文字变动监听，用于监听字数的变化
         noteEt.addTextChangedListener(textWatcher);
-        speakBtn = (ImageView) findViewById(R.id.speakBtn);
+        speakBtn = findViewById(R.id.speakBtn);
         speakBtn.setOnClickListener(this);
         isSpeaking=findViewById(R.id.isSpeaking);
         upLoadFile=findViewById(R.id.upLoadFile);
@@ -122,8 +126,14 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             case R.id.backBtn:
                 this.finish();
                 break;
-            //点击完成按钮
+            //点击完成按钮，以txt格式保存在date中
             case R.id.completeBtn:
+                try {
+                    saveFileDialogBuilder=new SaveFileDialogBuilder(this,noteEt.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                saveFileDialogBuilder.create().show();
                 break;
             //点击说话按钮
             case R.id.speakBtn:
@@ -175,6 +185,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             stringBuffer.append(JsonParser.parserRecognizerResult(recognizerResult.getResultString()));
             if (b=true){
                 noteEt.setText(stringBuffer.toString());
+                noteEt.setSelection(stringBuffer.length());
             }
             try {
                 //使用本地录音，识别成功后删除转码后的文件

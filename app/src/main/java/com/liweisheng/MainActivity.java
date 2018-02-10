@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * 初始化界面
      */
     private void initView(){
-        toolbar = (Toolbar) findViewById(R.id.headToolBar);
+        toolbar = (Toolbar) findViewById(R.id.head_tool_bar);
         setSupportActionBar(toolbar);
 
-        addNewNoteFab = (FloatingActionButton) findViewById(R.id.addNewNoteFab);
+        addNewNoteFab = (FloatingActionButton) findViewById(R.id.add_new_note_FAB);
         addNewNoteFab.setOnClickListener(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.options_main_menu, menu);
         return true;
     }
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClick(View view) {
         int id=view.getId();
-        if (id==R.id.addNewNoteFab){
+        if (id==R.id.add_new_note_FAB){
             if (isXunFei){
                 startActivity(new Intent(MainActivity.this, EditNoteMainActivityBasedXunFei.class));
             }else if (!isXunFei){
