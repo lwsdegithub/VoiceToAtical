@@ -1,4 +1,4 @@
-package com.liweisheng.com.liweisheng.Util;
+package com.liweisheng.util;
 
 import android.content.Context;
 

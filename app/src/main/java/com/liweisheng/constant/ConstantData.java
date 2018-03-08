@@ -1,4 +1,4 @@
-package com.liweisheng.Constant;
+package com.liweisheng.constant;
 
 /**
  * Created by 李维升 on 2017/12/19.

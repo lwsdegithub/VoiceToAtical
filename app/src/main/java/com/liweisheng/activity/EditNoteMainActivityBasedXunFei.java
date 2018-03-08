@@ -1,4 +1,4 @@
-package com.liweisheng.EditNoteActivity;
+package com.liweisheng.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,12 +29,11 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
-import com.liweisheng.Constant.ConstantData;
+import com.liweisheng.constant.ConstantData;
 import com.liweisheng.R;
-import com.liweisheng.View.SaveFileDialogBuilder;
-import com.liweisheng.com.liweisheng.Util.FileHelper;
-import com.liweisheng.com.liweisheng.Util.JsonParser;
-import com.liweisheng.com.liweisheng.Util.StringFactory;
+import com.liweisheng.view.Dialog.SaveFileDialogBuilder;
+import com.liweisheng.util.JsonParser;
+import com.liweisheng.util.StringFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_note_activity_main);
+        setContentView(R.layout.activity_note_main);
         //创建语音配置对象
         SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ ConstantData.APPIDFORXUNFEI);
         //调用初始化界面方法

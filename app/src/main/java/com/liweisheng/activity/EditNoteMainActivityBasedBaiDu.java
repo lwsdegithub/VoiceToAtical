@@ -1,4 +1,4 @@
-package com.liweisheng.EditNoteActivity;
+package com.liweisheng.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

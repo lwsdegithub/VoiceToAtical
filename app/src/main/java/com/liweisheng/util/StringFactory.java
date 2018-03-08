@@ -1,6 +1,4 @@
-package com.liweisheng.com.liweisheng.Util;
-
-import com.liweisheng.EditNoteActivity.EditNoteMainActivityBasedXunFei;
+package com.liweisheng.util;
 
 /**
  * Created by 李维升 on 2018/1/9.

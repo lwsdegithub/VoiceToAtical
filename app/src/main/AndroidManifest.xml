@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="VoiceToWords"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedXunFei"
+        <activity android:name=".activity.EditNoteMainActivityBasedXunFei"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".EditNoteActivity.EditNoteMainActivityBasedBaiDu"/>
+        <activity android:name=".activity.EditNoteMainActivityBasedBaiDu"/>
         <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
     </application>
     <!--连接网络权限，用于执行云端语音能力 -->

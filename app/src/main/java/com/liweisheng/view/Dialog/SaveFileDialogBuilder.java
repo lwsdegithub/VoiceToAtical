@@ -1,4 +1,4 @@
-package com.liweisheng.View;
+package com.liweisheng.view.Dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.liweisheng.R;
-import com.liweisheng.com.liweisheng.Util.FileHelper;
+import com.liweisheng.util.FileHelper;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class SaveFileDialogBuilder extends AlertDialog.Builder implements Dialog
         this.setNegativeButton("取消",this);
         this.setPositiveButton("确定",this);
         this.setTitle("保存文件");
-        View mainView= LayoutInflater.from(context).inflate(R.layout.save_file_dialog_layout,null,false);
+        View mainView= LayoutInflater.from(context).inflate(R.layout.dialog_note_save_file,null,false);
         this.setView(mainView);
         this.editText=mainView.findViewById(R.id.file_name_ET);
     }

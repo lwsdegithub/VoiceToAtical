@@ -1,4 +1,4 @@
-package com.liweisheng.Bean;
+package com.liweisheng.bean;
 
 import java.util.List;
 

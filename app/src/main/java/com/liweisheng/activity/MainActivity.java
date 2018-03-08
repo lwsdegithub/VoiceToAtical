@@ -1,4 +1,4 @@
-package com.liweisheng;
+package com.liweisheng.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.liweisheng.EditNoteActivity.EditNoteMainActivityBasedXunFei;
+import com.liweisheng.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private Toolbar toolbar;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.options_main_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
 
