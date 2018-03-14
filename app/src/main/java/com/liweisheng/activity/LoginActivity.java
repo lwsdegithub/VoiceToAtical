@@ -32,12 +32,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        button = this.findViewById(R.id.async_test);
+        button = this.findViewById(R.id.btn_login_in);
         button.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.async_test) {
+        if (view.getId() == R.id.btn_login_in) {
             try {
                 loginAsyncTask.execute(new URL("http://blog.csdn.net/iispring/article/details/50639090"));
             } catch (MalformedURLException e) {
