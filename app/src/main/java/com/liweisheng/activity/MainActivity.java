@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.head_tool_bar);
         setSupportActionBar(toolbar);
 
-        addNewNoteFab = findViewById(R.id.add_new_note_FAB);
+        addNewNoteFab = findViewById(R.id.fab_add);
         addNewNoteFab.setOnClickListener(this);
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClick(View view) {
         int id=view.getId();
-        if (id==R.id.add_new_note_FAB){
+        if (id == R.id.fab_add) {
             if (isXunFei){
                 startActivity(new Intent(MainActivity.this, ActivityBasedXF.class));
             }else if (!isXunFei){

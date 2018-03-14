@@ -27,11 +27,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        button = this.findViewById(R.id.async_test);
-        button.setOnClickListener(this);
+        this.initView();
         loginAsyncTask = new LoginAsyncTask(this, this);
     }
 
+    private void initView() {
+        button = this.findViewById(R.id.async_test);
+        button.setOnClickListener(this);
+    }
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.async_test) {

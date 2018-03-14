@@ -70,18 +70,18 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
         this.initView();
     }
     private void initView(){
-        backBtn =  findViewById(R.id.backBtn);
+        backBtn = findViewById(R.id.iv_back);
         backBtn.setOnClickListener(this);
-        numberOfNote =  findViewById(R.id.numberOfNote);
-        completeBtn = findViewById(R.id.completeBtn);
+        numberOfNote = findViewById(R.id.tv_num_of_note);
+        completeBtn = findViewById(R.id.tv_complete);
         completeBtn.setOnClickListener(this);
-        noteEt =  findViewById(R.id.noteEt);
+        noteEt = findViewById(R.id.et_note);
         //设置文字变动监听，用于监听字数的变化
         noteEt.addTextChangedListener(textWatcher);
-        speakBtn = findViewById(R.id.speakBtn);
+        speakBtn = findViewById(R.id.iv_speak);
         speakBtn.setOnClickListener(this);
-        isSpeaking=findViewById(R.id.isSpeaking);
-        upLoadFile=findViewById(R.id.upLoadFile);
+        isSpeaking = findViewById(R.id.tv_is_speaking);
+        upLoadFile = findViewById(R.id.iv_upload_file);
         upLoadFile.setOnClickListener(this);
         speechRecognizer=SpeechRecognizer.createRecognizer(this,initListener);
         initSpeechRecognizer();
@@ -122,11 +122,11 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
         int id=view.getId();
         switch (id){
             //点击返回按钮
-            case R.id.backBtn:
+            case R.id.iv_back:
                 this.finish();
                 break;
             //点击完成按钮，以txt格式保存在date中
-            case R.id.completeBtn:
+            case R.id.tv_complete:
                 try {
                     saveFileDialogBuilder=new SaveFileDialogBuilder(this,noteEt.getText().toString());
                 } catch (IOException e) {
@@ -135,13 +135,13 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
                 saveFileDialogBuilder.create().show();
                 break;
             //点击说话按钮
-            case R.id.speakBtn:
+            case R.id.iv_speak:
                 speechRecognizer.setParameter(SpeechConstant.AUDIO_SOURCE,"1");
                 speechRecognizer.startListening(recognizerListener);
                 isSpeaking.setText("正在听写...");
                 break;
             //点击上传录音,调用系统文件选择框，选择文件并使用回调接口
-            case R.id.upLoadFile:
+            case R.id.iv_upload_file:
                 new LFilePicker().withActivity(ActivityBasedXF.this).withMutilyMode(false)
                         .withRequestCode(ConstantData.FILE_SELECT_CODE).withTitle("选择音频").withFileFilter(ConstantData.audioForms)
                         .withBackgroundColor("#b3c9b4").start();

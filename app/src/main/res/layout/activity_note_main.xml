@@ -11,40 +11,40 @@
         android:layout_height="40dp"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/backBtn"
+            android:id="@+id/iv_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_back"/>
         <TextView
-            android:id="@+id/numberOfNote"
+            android:id="@+id/tv_num_of_note"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:text="0字"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/backBtn"
+            android:layout_toRightOf="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/isSpeaking"
+            android:id="@+id/tv_is_speaking"
             android:layout_marginLeft="15dp"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/numberOfNote"
+            android:layout_toRightOf="@+id/tv_num_of_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-            android:id="@+id/upLoadFile"
+            android:id="@+id/iv_upload_file"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/completeBtn"
+            android:layout_toLeftOf="@+id/tv_complete"
             android:src="@android:drawable/ic_menu_upload"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
-            android:id="@+id/completeBtn"
+            android:id="@+id/tv_complete"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_marginRight="10dp"
@@ -55,7 +55,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
     </RelativeLayout>
-    <include layout="@layout/public_devision_line" android:layout_below="@+id/head_tool_bar" android:layout_height="0.1dp" android:layout_width="match_parent"></include>
+
+    <include
+        layout="@layout/include_devision_line"
+        android:layout_below="@+id/head_tool_bar"
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"></include>
     <ScrollView
         android:layout_marginBottom="40dp"
         android:layout_below="@+id/head_tool_bar"
@@ -65,21 +70,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
-                android:id="@+id/noteEt"
+                android:id="@+id/et_note"
                 android:background="@null"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/public_devision_line" android:layout_above="@+id/feetToolbar" android:layout_height="0.1dp" android:layout_width="match_parent"></include>
+
+    <include
+        layout="@layout/include_devision_line"
+        android:layout_above="@+id/feet_tool_bar"
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"></include>
     <RelativeLayout
-        android:id="@+id/feetToolbar"
+        android:id="@+id/feet_tool_bar"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <ImageView
-            android:id="@+id/speakBtn"
+            android:id="@+id/iv_speak"
             android:src="@android:drawable/ic_btn_speak_now"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
