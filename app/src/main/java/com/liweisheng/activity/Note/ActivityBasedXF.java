@@ -1,4 +1,4 @@
-package com.liweisheng.activity;
+package com.liweisheng.activity.Note;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,11 +29,11 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
-import com.liweisheng.constant.ConstantData;
 import com.liweisheng.R;
-import com.liweisheng.view.Dialog.SaveFileDialogBuilder;
+import com.liweisheng.constant.ConstantData;
 import com.liweisheng.util.JsonParser;
 import com.liweisheng.util.StringFactory;
+import com.liweisheng.view.Dialog.SaveFileDialogBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +44,7 @@ import java.util.List;
  * 这是基于科大讯飞语音识别系统的Activity
  */
 
-public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implements View.OnClickListener {
+public class ActivityBasedXF extends AppCompatActivity implements View.OnClickListener {
     private ImageView backBtn;
     private TextView numberOfNote;
     private TextView completeBtn;
@@ -142,7 +142,7 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
                 break;
             //点击上传录音,调用系统文件选择框，选择文件并使用回调接口
             case R.id.upLoadFile:
-                new LFilePicker().withActivity(EditNoteMainActivityBasedXunFei.this).withMutilyMode(false)
+                new LFilePicker().withActivity(ActivityBasedXF.this).withMutilyMode(false)
                         .withRequestCode(ConstantData.FILE_SELECT_CODE).withTitle("选择音频").withFileFilter(ConstantData.audioForms)
                         .withBackgroundColor("#b3c9b4").start();
                 break;
@@ -225,7 +225,8 @@ public class EditNoteMainActivityBasedXunFei extends AppCompatActivity implement
             stringBuffer.append(noteEt.getText());
         }
     };
-    //这是选择文件时回调的接口
+
+    //选择文件时回调接口
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {

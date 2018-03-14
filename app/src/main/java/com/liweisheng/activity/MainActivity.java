@@ -3,7 +3,6 @@ package com.liweisheng.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.liweisheng.R;
+import com.liweisheng.activity.Note.ActivityBasedXF;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private Toolbar toolbar;
@@ -34,19 +35,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * 初始化界面
      */
     private void initView(){
-        toolbar = (Toolbar) findViewById(R.id.head_tool_bar);
+        toolbar = findViewById(R.id.head_tool_bar);
         setSupportActionBar(toolbar);
 
-        addNewNoteFab = (FloatingActionButton) findViewById(R.id.add_new_note_FAB);
+        addNewNoteFab = findViewById(R.id.add_new_note_FAB);
         addNewNoteFab.setOnClickListener(this);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id=view.getId();
         if (id==R.id.add_new_note_FAB){
             if (isXunFei){
-                startActivity(new Intent(MainActivity.this, EditNoteMainActivityBasedXunFei.class));
+                startActivity(new Intent(MainActivity.this, ActivityBasedXF.class));
             }else if (!isXunFei){
                 Toast.makeText(this,"选择了百度",Toast.LENGTH_LONG).show();
             }

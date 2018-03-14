@@ -1,7 +1,7 @@
 package com.liweisheng.util;
 
 import com.google.gson.Gson;
-import com.liweisheng.bean.RecognizerResult;
+import com.liweisheng.entity.RecognizerResult;
 
 import java.util.List;
 
