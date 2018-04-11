@@ -12,43 +12,54 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liweisheng.R;
+import com.liweisheng.activity.Dao.LoginActivity;
 import com.liweisheng.activity.Note.ActivityBasedXF;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
-    private Toolbar toolbar;
+    private Toolbar mainToolBar;
     private FloatingActionButton addNewNoteFab;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private LinearLayout navHeadLinLay;
+    private TextView tvUserName;
+    private TextView tvUserWord;
     //默认设置科大讯飞为识别引擎
     private Boolean isXunFei=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-     //调用初始化方法
         initView();
     }
     /**
      * 初始化界面
      */
     private void initView(){
-        toolbar = findViewById(R.id.head_tool_bar);
-        setSupportActionBar(toolbar);
+        mainToolBar = findViewById(R.id.head_tool_bar);
+        setSupportActionBar(mainToolBar);
 
         addNewNoteFab = findViewById(R.id.fab_add);
         addNewNoteFab.setOnClickListener(this);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawerLayout, mainToolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //获取NavigationView中Head
+        navHeadLinLay = (LinearLayout) navigationView.getHeaderView(0);
+        tvUserName = navHeadLinLay.findViewById(R.id.tv_user_name);
+        tvUserWord = navHeadLinLay.findViewById(R.id.tv_user_word);
+        tvUserName.setOnClickListener(this);
+        tvUserWord.setOnClickListener(this);
     }
 
     @Override
@@ -62,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
@@ -70,11 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_exit) {
             this.finish();
             return true;
@@ -113,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }else if (!isXunFei){
                 Toast.makeText(this,"选择了百度",Toast.LENGTH_LONG).show();
             }
+        }
+        if (id == R.id.tv_user_name) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
     }
 }

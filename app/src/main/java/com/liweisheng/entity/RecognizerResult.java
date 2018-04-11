@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by 李维升 on 2017/12/21.
- * 这是语音听写后返回的结果Bean类
+ * 语音听写后返回的结果Bean类
  */
 
 public class RecognizerResult {

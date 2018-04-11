@@ -65,7 +65,7 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_main);
         //创建语音配置对象
-        SpeechUtility.createUtility(this, SpeechConstant.APPID+"="+ ConstantData.APPIDFORXUNFEI);
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" + ConstantData.APP_ID_FOR_XF);
         //调用初始化界面方法
         this.initView();
     }
