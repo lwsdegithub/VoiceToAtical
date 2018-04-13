@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,6 +29,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
 import com.liweisheng.R;
+import com.liweisheng.base.BaseActivity;
 import com.liweisheng.constant.ConstantData;
 import com.liweisheng.util.JsonParser;
 import com.liweisheng.util.StringFactory;
@@ -44,7 +44,7 @@ import java.util.List;
  * 这是基于科大讯飞语音识别系统的Activity
  */
 
-public class ActivityBasedXF extends AppCompatActivity implements View.OnClickListener {
+public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private ImageView backBtn;
     private TextView numberOfNote;
     private TextView completeBtn;
@@ -142,7 +142,7 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
                 break;
             //点击上传录音,调用系统文件选择框，选择文件并使用回调接口
             case R.id.iv_upload_file:
-                new LFilePicker().withActivity(ActivityBasedXF.this).withMutilyMode(false)
+                new LFilePicker().withActivity(NoteActivity.this).withMutilyMode(false)
                         .withRequestCode(ConstantData.FILE_SELECT_CODE).withTitle("选择音频").withFileFilter(ConstantData.audioForms)
                         .withBackgroundColor("#b3c9b4").start();
                 break;
@@ -182,7 +182,7 @@ public class ActivityBasedXF extends AppCompatActivity implements View.OnClickLi
         public void onResult(RecognizerResult recognizerResult, boolean b) {
             Log.e("results",recognizerResult.getResultString());
             stringBuffer.append(JsonParser.parserRecognizerResult(recognizerResult.getResultString()));
-            if (b=true){
+            if (b) {
                 noteEt.setText(stringBuffer.toString());
                 noteEt.setSelection(stringBuffer.length());
             }

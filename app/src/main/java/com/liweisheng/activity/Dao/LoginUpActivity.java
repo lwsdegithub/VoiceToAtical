@@ -5,13 +5,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.liweisheng.R;
 import com.liweisheng.async.LoginUpThread;
+import com.liweisheng.base.BaseActivity;
 import com.liweisheng.constant.ConstantData;
 import com.liweisheng.constant.ResponseCode;
 
@@ -19,7 +19,7 @@ import com.liweisheng.constant.ResponseCode;
  * Created by 李维升 on 2018/3/14.
  */
 
-public class LoginUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginUpActivity extends BaseActivity implements View.OnClickListener {
     private LoginUpThread loginUpThread;
     private TextInputEditText tiePhone;
     private TextInputEditText tiePwd;

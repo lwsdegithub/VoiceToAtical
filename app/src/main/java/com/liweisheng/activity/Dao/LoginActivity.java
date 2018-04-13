@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import com.liweisheng.R;
 import com.liweisheng.activity.MainActivity;
 import com.liweisheng.async.LoginThread;
+import com.liweisheng.base.BaseActivity;
 import com.liweisheng.constant.ConstantData;
 import com.liweisheng.constant.ResponseCode;
 
@@ -23,7 +23,7 @@ import com.liweisheng.constant.ResponseCode;
  * Created by 李维升 on 2018/3/13.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private LoginThread loginThread;
     private TextInputEditText tiePhone;
     private TextInputEditText tiePwd;

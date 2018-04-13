@@ -14,11 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.liweisheng.R;
 import com.liweisheng.activity.Dao.LoginActivity;
-import com.liweisheng.activity.Note.ActivityBasedXF;
+import com.liweisheng.activity.Note.NoteActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private Toolbar mainToolBar;
@@ -28,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LinearLayout navHeadLinLay;
     private TextView tvUserName;
     private TextView tvUserWord;
-    //默认设置科大讯飞为识别引擎
-    private Boolean isXunFei=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_exit) {
             this.finish();
             return true;
-        }else if (id==R.id.baiDu){
-            isXunFei=false;
-        }else if (id==R.id.xunFei){
-            isXunFei=true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -114,11 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onClick(View view) {
         int id=view.getId();
         if (id == R.id.fab_add) {
-            if (isXunFei){
-                startActivity(new Intent(MainActivity.this, ActivityBasedXF.class));
-            }else if (!isXunFei){
-                Toast.makeText(this,"选择了百度",Toast.LENGTH_LONG).show();
-            }
+            startActivity(new Intent(MainActivity.this, NoteActivity.class));
         }
         if (id == R.id.tv_user_name) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));

@@ -8,6 +8,7 @@
         android:label="VoiceToWords"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity android:name=".base.BaseActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:label="VoiceToWords"
@@ -17,21 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.Note.ActivityBasedXF"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.Note.ActivityBasedBD"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity
-            android:name=".activity.Dao.LoginActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity
-            android:name=".activity.Dao.LoginUpActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity
-            android:name=".activity.Dao.ForgetPwdActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".activity.Note.NoteActivity" />
+        <activity android:name=".activity.Dao.LoginActivity" />
+        <activity android:name=".activity.Dao.LoginUpActivity" />
+        <activity android:name=".activity.Dao.ForgetPwdActivity" />
         <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
     </application>
     <!--连接网络权限，用于执行云端语音能力 -->

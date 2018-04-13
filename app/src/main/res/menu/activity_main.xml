@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="选择语音识别引擎">
         <menu>
-            <item android:id="@+id/xunFei" android:title="科大讯飞(默认)"/>
-            <item android:id="@+id/baiDu" android:title="百度语音"/>
+            <item
+                android:id="@+id/bd_asr"
+                android:title="百度语音(默认)" />
         </menu>
     </item>
     <item
